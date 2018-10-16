@@ -1,5 +1,10 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(377,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  pch.cpp
   ImNotAWrapper.cpp
-  ImNotAWrapper.vcxproj -> C:\Users\100836038\Desktop\ImNotAWrapper\ImNotAWrapper\..\Builds\ImNotAWrapperWin32Debug.exe
+c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(78): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(78): note: consider using '%lld' in the format string
+  c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(78): note: consider using '%I64d' in the format string
+c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(82): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(82): note: consider using '%lld' in the format string
+  c:\users\tech\desktop\superhotfire\imnotawrapper\imnotawrapper\imnotawrapper.cpp(82): note: consider using '%I64d' in the format string
+  ImNotAWrapper.vcxproj -> C:\Users\Tech\Desktop\SuperHotFire\ImNotAWrapper\ImNotAWrapper\..\..\Builds\ImNotAWrapperWin32Debug.exe
