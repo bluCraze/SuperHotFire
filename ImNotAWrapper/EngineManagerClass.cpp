@@ -21,6 +21,8 @@ void EngineManagerClass::DestroyGame(){
 void EngineManagerClass::StartGame(){
 
 }
+BOOL fDraw = FALSE;
+POINT ptPrevious;
 
 //Method to check no other instance is running, returns false if another instance is found.
 bool EngineManagerClass::isOnlyInstance(LPCTSTR gameTitle) {
@@ -171,6 +173,7 @@ void EngineManagerClass::checkCPUStats() {
 }
 
 LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+
 	char szWordBuffer[500];
 	std::string textStr = "KEY: ";
 	
@@ -186,7 +189,7 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 
 		GetClientRect(hWnd, &rc);
 		SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
-		FillRect(hdc, &ps.rcPaint, CreateSolidBrush(RGB(0,0,0)));
+		FillRect(hdc, &ps.rcPaint, CreateSolidBrush(RGB(255,255,255)));
 		EndPaint(hWnd, &ps);
 		return 0;
 	}
@@ -215,32 +218,36 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 
 	// LMB pressed
 	case WM_LBUTTONDOWN: {
-		POINT cursorPos;
-		GetCursorPos(&cursorPos);
-
-		sprintf_s(szWordBuffer, "X: %.2f\n Y: %.2f\n",
-			Input->ReturnMouseX(cursorPos),
-			Input->ReturnMouseY(cursorPos));
-
-		MessageBox(0, szWordBuffer, "Mouse Position - LMB", 0);
-
-		return 0;
+		fDraw = TRUE;
+		ptPrevious.x = LOWORD(lParam);
+		ptPrevious.y = HIWORD(lParam);
+		return 0L;
 	}
 
-	// RMB pressed
-	case WM_RBUTTONDOWN: {
-		POINT cursorPos;
-		GetCursorPos(&cursorPos);
-
-		sprintf_s(szWordBuffer, "X: %.2f\n Y: %.2f\n",
-			Input->ReturnMouseX(cursorPos),
-			Input->ReturnMouseY(cursorPos));
-
-		MessageBox(0, szWordBuffer, "Mouse Position - RMB", 0);
-
-		return 0;
+	// LMB released
+	case WM_LBUTTONUP: {
+		if (fDraw)
+		{
+			hdc = GetDC(hWnd);
+			MoveToEx(hdc, ptPrevious.x, ptPrevious.y, NULL);
+			LineTo(hdc, LOWORD(lParam), HIWORD(lParam));
+			ReleaseDC(hWnd, hdc);
+		}
+		fDraw = FALSE;
+		return 0L;
 	}
-
+	
+	//M movement
+	case WM_MOUSEMOVE:
+		if (fDraw)
+		{
+			hdc = GetDC(hWnd);
+			MoveToEx(hdc, ptPrevious.x, ptPrevious.y, NULL);
+			LineTo(hdc, ptPrevious.x = LOWORD(lParam),
+				ptPrevious.y = HIWORD(lParam));
+			ReleaseDC(hWnd, hdc);
+		}
+		return 0L;
 
 	default:
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);

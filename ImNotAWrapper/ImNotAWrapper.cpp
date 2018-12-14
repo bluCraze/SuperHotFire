@@ -100,7 +100,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 		CreateWindow(TEXT("button"), TEXT("Colour"),
 			WS_VISIBLE | WS_CHILD,
-			200, 150, 80, 50,
+			390, 300, 60, 50,
 			hWnd, (HMENU) 1, NULL, NULL
 		);
 
