@@ -2,28 +2,23 @@
 
 //Convert bytes to MB
 #define DIV 1048576
-EngineManagerClass::EngineManagerClass()
-{
+EngineManagerClass::EngineManagerClass(){
 
 }
 
-EngineManagerClass::~EngineManagerClass()
-{
+EngineManagerClass::~EngineManagerClass(){
 }
 
-void EngineManagerClass::InitializeGame()
-{
+void EngineManagerClass::InitializeGame(){
 	Input = std::make_unique<InputManagerClass>();
 	
 }
 
-void EngineManagerClass::DestroyGame()
-{
+void EngineManagerClass::DestroyGame(){
 
 }
 
-void EngineManagerClass::StartGame()
-{
+void EngineManagerClass::StartGame(){
 
 }
 
@@ -98,8 +93,7 @@ void EngineManagerClass::checkMemory(const DWORDLONG physicalRAMNeeded, const DW
 		);
 		// create all other systems
 		// enter the main loop:
-		if (checkStorage(300000000, hWnd) == false)
-		{
+		if (checkStorage(300000000, hWnd) == false)		{
 			int msgboxID3 = MessageBox(
 				hWnd,
 				"checkStorage Failure : Not enough physical storage.",
@@ -160,8 +154,7 @@ void EngineManagerClass::checkCPUStats() {
 	MessageBox(NULL, cpu_speed, "CPU Speed Test", MB_OK);
 
 	ArchNum = systemInfo.wProcessorArchitecture;
-	switch (ArchNum)
-	{
+	switch (ArchNum) {
 	case 0: MessageBox(NULL, "Intel x86\n", "Processor Architecture", MB_OK);
 		break;
 	case 5: MessageBox(NULL, "ARM\n", "Processor Architecture", MB_OK);
@@ -177,8 +170,7 @@ void EngineManagerClass::checkCPUStats() {
 	}
 }
 
-LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	char szWordBuffer[500];
 	std::string textStr = "KEY: ";
 	
@@ -188,10 +180,8 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 	
 
 
-	switch (uMsg)
-	{
-	case WM_PAINT:
-	{
+	switch (uMsg) {
+	case WM_PAINT: {
 		hdc = BeginPaint(hWnd, &ps);
 
 		GetClientRect(hWnd, &rc);
@@ -202,8 +192,7 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 	}
 
 	// Key pressed
-	case WM_KEYDOWN:
-	{
+	case WM_KEYDOWN: {
 		Input->OnKeyDown(wParam);
 		textStr += Input->ReturnKeyPressed(wParam);
 
@@ -218,16 +207,14 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 		return 0;
 	}
 
-	// Key released
-	case WM_KEYUP:
-	{
+	// Key released on mouse
+	case WM_KEYUP: {
 		Input->OnKeyUp(wParam);
 		return 0;
 	}
 
 	// LMB pressed
-	case WM_LBUTTONDOWN:
-	{
+	case WM_LBUTTONDOWN: {
 		POINT cursorPos;
 		GetCursorPos(&cursorPos);
 
@@ -241,8 +228,7 @@ LRESULT CALLBACK EngineManagerClass::MsgManager(HWND hWnd, UINT uMsg, WPARAM wPa
 	}
 
 	// RMB pressed
-	case WM_RBUTTONDOWN:
-	{
+	case WM_RBUTTONDOWN: {
 		POINT cursorPos;
 		GetCursorPos(&cursorPos);
 
