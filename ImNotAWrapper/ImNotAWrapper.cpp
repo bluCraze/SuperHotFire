@@ -5,135 +5,10 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include "EngineManagerClass.h"
 
-//Convert bytes to MB
-#define DIV 1048576
 
-//Method to check no other instance is running, returns false if another instance is found.
-bool isOnlyInstance(LPCTSTR gameTitle) {
-	HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
-	if (GetLastError() != ERROR_SUCCESS) {
-		HWND hWnd = FindWindow(gameTitle, NULL);
-		if (hWnd) {
-			// An instance of your game is already running.
-			ShowWindow(hWnd, SW_SHOWNORMAL);
-			SetFocus(hWnd);
-			SetForegroundWindow(hWnd);
-			SetActiveWindow(hWnd);
-			// display message
-			int msgboxID = MessageBox(
-				hWnd,
-				"An instance of the application is already running",
-				"Multiple Instances Detected",
-				MB_ICONWARNING
-				WM_DESTROY
-				{
-					// close the application entirely
-					PostQuitMessage(0);
-					return 0;
-				};
-			);
-			return false;
-		}
-	}
-	return true;
-}
 
-//Method to check if there is enough available storage, outputs to console the results.
-bool checkStorage(const DWORDLONG diskSpaceNeeded) {
-	int const drive = _getdrive();
-	struct _diskfree_t diskfree;
-	_getdiskfree(drive, &diskfree);
-
-	unsigned __int64 const neededClusters = diskSpaceNeeded /
-		(diskfree.sectors_per_cluster * diskfree.bytes_per_sector);
-
-	if (diskfree.avail_clusters < neededClusters) {
-		return 0;
-	}
-	else {
-		return 1;
-	}
-}
-
-//Method to check how much physical and virtual memory is available on the system.
-void checkMemory(const DWORDLONG physicalRAMNeeded, const DWORDLONG virtualRAMNeeded) {
-	MEMORYSTATUSEX status;
-	status.dwLength = sizeof(status);
-	GlobalMemoryStatusEx(&status);
-
-	if (status.ullAvailPhys < physicalRAMNeeded || status.ullAvailVirtual < virtualRAMNeeded) {
-		int msgboxID3 = MessageBox(
-			NULL,
-			"Failed, Toss Comp.",
-			"Check Memory",
-			MB_ICONWARNING
-		);
-	}
-	else {
-		int msgboxID3 = MessageBox(
-			NULL,
-			"You have passed the requirements!",
-			"Check Memory",
-			MB_ICONWARNING
-		);
-	}
-
-	char p_memTest[100];
-	sprintf_s(p_memTest, "You have : %d MB of available Physical Memory", status.ullAvailPhys / DIV);
-	MessageBox(NULL, p_memTest, "CheckMemory", MB_OK);
-
-	char v_memTest[100];
-	sprintf_s(v_memTest, "You have : %d MB of available Virtual Memory", status.ullAvailVirtual / DIV);
-	MessageBox(NULL, v_memTest, "CheckMemory", MB_OK);
-}
-
-//Displays the CPU speed and architecture to the console. 
-void checkCPUStats() {
-	int ArchNum;
-	SYSTEM_INFO systemInfo;
-	GetSystemInfo(&systemInfo);
-
-	DWORD BufSize = sizeof(DWORD);
-	DWORD dwMHz = 0;
-	DWORD type = REG_DWORD;
-	HKEY hKey;
-	// open the key where the proc speed is hidden:
-	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
-		"HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0",
-		0,
-		KEY_READ,
-		&hKey);
-	if (lError == ERROR_SUCCESS) {
-		// query the key:
-		RegQueryValueEx(hKey,
-			"~MHz",
-			NULL,
-			&type,
-			(LPBYTE)&dwMHz,
-			&BufSize);
-	}
-	char cpu_speed[50];
-	sprintf_s(cpu_speed, "The CPU Speed we get is : %d MegaHertz\n", dwMHz);
-	MessageBox(NULL, cpu_speed, "CPU Speed Test", MB_OK);
-
-	ArchNum = systemInfo.wProcessorArchitecture;
-	switch (ArchNum)
-	{
-	case 0: MessageBox(NULL, "Intel x86\n", "Processor Architecture", MB_OK);
-		break;
-	case 5: MessageBox(NULL, "ARM\n", "Processor Architecture", MB_OK);
-		break;
-	case 6: MessageBox(NULL, "Intel Itanium based", "Processor Architecture", MB_OK);
-		break;
-	case 9: MessageBox(NULL, "x64(AMD or Intel)", "Processor Architecture", MB_OK);
-		break;
-	case 12: MessageBox(NULL, "ARM64\n", "Processor Architecture", MB_OK);
-		break;
-	default: MessageBox(NULL, "Unknown architecture", "Processor Architecture", MB_OK);
-		break;
-	}
-}
 
 // the WindowProc function prototype
 LRESULT CALLBACK WindowProc(HWND hWnd,
@@ -141,36 +16,40 @@ LRESULT CALLBACK WindowProc(HWND hWnd,
 	WPARAM wParam,
 	LPARAM lParam);
 
+std::unique_ptr<EngineManagerClass> BuildManager = std::make_unique<EngineManagerClass>();
+
 // the entry point for any Windows program
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
+	BuildManager->InitializeGame();
 	// the handle for the window, filled by function
 	HWND hWnd;
 	// this struct holds information for the window class
-	WNDCLASSEX wc;
+	WNDCLASSEX WindowClass;
 
 	// clear out the window class
-	ZeroMemory(&wc, sizeof(WNDCLASSEX));
+	ZeroMemory(&WindowClass, sizeof(WNDCLASSEX));
 
 	// fill in the struct with needed info
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc = WindowProc;
-	wc.hInstance = hInstance;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-	wc.lpszClassName = "NewWindow";
+	WindowClass.cbSize = sizeof(WNDCLASSEX);
+	WindowClass.style = CS_HREDRAW | CS_VREDRAW;
+	WindowClass.lpfnWndProc = WindowProc;
+	WindowClass.hInstance = hInstance;
+	WindowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	WindowClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	//WindowClass.hbrBackground = CreateSolidBrush(RGB(0, 0, 0));
+	WindowClass.lpszClassName = "NewWindow";
 
 	// register the window class
-	RegisterClassEx(&wc);
+	RegisterClassEx(&WindowClass);
 
 	// create the window and use the result as the handle
 	hWnd = CreateWindowEx(NULL,
 		"NewWindow",    // name of the window class
-		"Our First Windowed Program",   // title of the window
+		"ImNotAWrapper",   // title of the window
 		WS_OVERLAPPEDWINDOW,    // window style
 		300,    // x-position of the window
 		300,    // y-position of the window
@@ -181,34 +60,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		hInstance,    // application handle
 		NULL);    // used with multiple windows, NULL
 
-	// display message
-	isOnlyInstance("NewWindow");
 
 	// display the window on the screen
 	ShowWindow(hWnd, nCmdShow);
-
-
-
-	// enter the main loop:
-	if (checkStorage(300000000) == false)
-	{
-		int msgboxID3 = MessageBox(
-			hWnd,
-			"checkStorage Failure : Not enough physical storage.",
-			"Check Storage",
-			MB_ICONWARNING
-		);
-	}
-	else {
-		int msgboxID4 = MessageBox(
-			hWnd,
-			"checkStorage Success: You got the cash!.",
-			"Check Storage",
-			MB_ICONWARNING
-		);
-	}
-	checkMemory(1000 * DIV, 1000 * DIV);
-	checkCPUStats();
 
 	// this struct holds Windows event messages
 	MSG msg;
@@ -221,6 +75,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 		// send the message to the WindowProc function
 		DispatchMessage(&msg);
+
+		UpdateWindow(hWnd);
+		RedrawWindow(hWnd, NULL, NULL, RDW_UPDATENOW | RDW_INTERNALPAINT);
 	}
 
 	// return this part of the WM_QUIT message to Windows
@@ -228,19 +85,47 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 }
 
+
 // this is the main message handler for the program
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
+	RECT rc;
+
 	// sort through and find what code to run for the message given
 	switch (message)
 	{
+	case WM_CREATE:
+
+		CreateWindow(TEXT("button"), TEXT("Colour"),
+			WS_VISIBLE | WS_CHILD,
+			200, 150, 80, 50,
+			hWnd, (HMENU) 1, NULL, NULL
+		);
+
+		break;
+
+	case WM_COMMAND:
+
+		if (LOWORD(wParam) == 1) {
+
+			InvalidateRect(hWnd, NULL, FALSE);
+			hdc = BeginPaint(hWnd, &ps);
+			GetClientRect(hWnd, &rc);
+			SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
+			FillRect(hdc, &ps.rcPaint, CreateSolidBrush(RGB(rand()%255, rand()%255, rand()%255)));
+			EndPaint(hWnd, &ps);
+			return 0;
+	}
+		break;
 		// this message is read when the window is closed
 	case WM_DESTROY:
-	{
 		// close the application entirely
 		PostQuitMessage(0);
 		return 0;
-	} break;
+	default:
+		return BuildManager->MsgManager(hWnd, message, wParam, lParam);
 	}
 
 	// Handle any messages the switch statement didn't

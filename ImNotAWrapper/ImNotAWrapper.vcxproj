@@ -134,7 +134,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActorClass.cpp" />
+    <ClCompile Include="AudioManagerClass.cpp" />
+    <ClCompile Include="EngineManagerClass.cpp" />
     <ClCompile Include="ImNotAWrapper.cpp" />
+    <ClCompile Include="InputManagerClass.cpp" />
+    <ClCompile Include="PhysicsManagerClass.cpp" />
+    <ClCompile Include="RenderClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ActorClass.h" />
+    <ClInclude Include="AudioManagerClass.h" />
+    <ClInclude Include="EngineManagerClass.h" />
+    <ClInclude Include="InputManagerClass.h" />
+    <ClInclude Include="PhysicsMangerClass.h" />
+    <ClInclude Include="RenderClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
