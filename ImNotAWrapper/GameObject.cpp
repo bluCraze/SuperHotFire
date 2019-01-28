@@ -6,7 +6,7 @@ GameObject::GameObject()
 {
 	parent = nullptr;
 	TransformComponent localTransform2;
-	componentList.push_back(localTransform2);
+	//componentList.push_back(localTransform2);
 }
 
 

@@ -19,19 +19,22 @@ EngineManager::~EngineManager()
 
 void EngineManager::Start()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1024, 1024), "SFML works!");
 	sf::WindowHandle myWind = window.getSystemHandle();
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::Texture texture;
+	texture.loadFromFile("splash1.png");
+	sf::Sprite sprite;
+	sprite.setScale(0.5, 0.5);
+	sprite.setTexture(texture);
 
-	GameObject *scene;
+	/*GameObject *scene;
 	GameObject *sun;
 	GameObject *earth;
 	GameObject *moon;
 
 	scene->AddChild(sun);
 	sun->AddChild(earth);
-	earth->AddChild(moon);
+	earth->AddChild(moon);*/
 
 	while (window.isOpen())
 	{
@@ -43,7 +46,7 @@ void EngineManager::Start()
 		}
 
 		window.clear();
-		window.draw(shape);
+		window.draw(sprite);
 		window.display();
 	}
 }

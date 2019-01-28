@@ -6,7 +6,7 @@
 class GameObject
 {
 public:
-	GameObject() {}
+	GameObject();
 	~GameObject();
 
 	void setTransform(sf::Transform &matrix) { localTransform = matrix;}
