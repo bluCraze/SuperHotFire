@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
 #include <direct.h>
+#include <string>
 
 class EngineManager
 {

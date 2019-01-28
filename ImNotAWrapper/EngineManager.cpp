@@ -3,6 +3,7 @@
 #include "atltypes.h"
 #include <tchar.h>
 #include <memory>
+#include "GameObject.h"
 
 //Convert bytes to MB
 #define DIV 1048576
@@ -19,8 +20,18 @@ EngineManager::~EngineManager()
 void EngineManager::Start()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::WindowHandle myWind = window.getSystemHandle();
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
+
+	GameObject *scene;
+	GameObject *sun;
+	GameObject *earth;
+	GameObject *moon;
+
+	scene->AddChild(sun);
+	sun->AddChild(earth);
+	earth->AddChild(moon);
 
 	while (window.isOpen())
 	{
@@ -39,7 +50,7 @@ void EngineManager::Start()
 
 void EngineManager::Initialize()
 {
-	//isOnlyInstance();
+	printf("%d",isOnlyInstance("ImNotAWrapperWin32Debug.exe"));
 	printf("\n");
 	checkStorage(300000000);
 	printf("\n");
@@ -130,7 +141,32 @@ void EngineManager::checkMemory(const DWORDLONG physicalRAMNeeded, const DWORDLO
 
 bool EngineManager::isOnlyInstance(LPCTSTR gameTitle)
 {
-	return false;
+	HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
+	if (GetLastError() != ERROR_SUCCESS) {
+		HWND hWnd = FindWindow(gameTitle, NULL);
+		if (hWnd) {
+			// An instance of your game is already running.
+			ShowWindow(hWnd, SW_SHOWNORMAL);
+			SetFocus(hWnd);
+			SetForegroundWindow(hWnd);
+			SetActiveWindow(hWnd);
+			// display message
+			int msgboxID = MessageBox(
+				hWnd,
+				"An instance of the application is already running",
+				"Multiple Instances Detected",
+				MB_ICONWARNING
+				//WM_DESTROY
+				//{
+				//	 close the application entirely
+				//	PostQuitMessage(0);
+				//	return 0;
+				//};
+			);
+			return false;
+		}
+	}
+	return true;
 }
 
 bool EngineManager::IsExiting()

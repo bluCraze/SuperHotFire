@@ -1,16 +1,8 @@
-﻿  pch.cpp
-  Actor.cpp
-  AudioManager.cpp
-  EngineManager.cpp
-c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(127): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
-  c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(127): note: consider using '%lld' in the format string
-  c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(127): note: consider using '%I64d' in the format string
-c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(128): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
-  c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(128): note: consider using '%lld' in the format string
-  c:\users\localadmin\desktop\engine 2\imnotawrapper\imnotawrapper\enginemanager.cpp(128): note: consider using '%I64d' in the format string
-  ImNotAWrapper.cpp
-  InputManager.cpp
-  PhysicsManager.cpp
-  Render.cpp
-  Generating Code...
-  ImNotAWrapper.vcxproj -> C:\Users\localadmin\Desktop\engine 2\ImNotAWrapper\ImNotAWrapper\..\Builds\ImNotAWrapperWin32Debug.exe
+﻿  EngineManager.cpp
+d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(128): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(128): note: consider using '%lld' in the format string
+  d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(128): note: consider using '%I64d' in the format string
+d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(129): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(129): note: consider using '%lld' in the format string
+  d:\users\topher\desktop\university\highschool kek\semester 6\gameengine\superhotfire\imnotawrapper\enginemanager.cpp(129): note: consider using '%I64d' in the format string
+  ImNotAWrapper.vcxproj -> D:\Users\Topher\Desktop\University\highschool kek\Semester 6\GameEngine\SuperHotFire\ImNotAWrapper\..\Builds\ImNotAWrapperWin32Debug.exe
