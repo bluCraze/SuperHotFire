@@ -1,1 +1,13 @@
-﻿  ImNotAWrapper.vcxproj -> C:\Users\Terry\Desktop\SuperHotFire-Semester2\semester\SuperHotFire\ImNotAWrapper\..\Builds\ImNotAWrapperWin32Debug.exe
+﻿  Actor.cpp
+  BaseComponent.cpp
+  EngineManager.cpp
+c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(141): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(141): note: consider using '%lld' in the format string
+  c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(141): note: consider using '%I64d' in the format string
+c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(142): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORDLONG'
+  c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(142): note: consider using '%lld' in the format string
+  c:\users\localadmin\documents\superhotfire\imnotawrapper\enginemanager.cpp(142): note: consider using '%I64d' in the format string
+  GameObject.cpp
+  TransformComponent.cpp
+  Generating Code...
+  ImNotAWrapper.vcxproj -> C:\Users\localadmin\Documents\SuperHotFire\ImNotAWrapper\..\Builds\ImNotAWrapperWin32Debug.exe

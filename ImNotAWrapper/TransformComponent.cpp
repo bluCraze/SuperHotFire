@@ -4,6 +4,7 @@
 
 TransformComponent::TransformComponent()
 {
+	localTransform = sf::Transform::Identity;
 }
 
 

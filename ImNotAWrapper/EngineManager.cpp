@@ -27,14 +27,14 @@ void EngineManager::Start()
 	sprite.setScale(0.5, 0.5);
 	sprite.setTexture(texture);
 
-	/*GameObject *scene;
-	GameObject *sun;
-	GameObject *earth;
-	GameObject *moon;
+	GameObject *scene = new GameObject;
+	GameObject *sun = new GameObject;
+	GameObject *earth = new GameObject;
+	GameObject *moon = new GameObject;
 
 	scene->AddChild(sun);
 	sun->AddChild(earth);
-	earth->AddChild(moon);*/
+	earth->AddChild(moon);
 
 	while (window.isOpen())
 	{
