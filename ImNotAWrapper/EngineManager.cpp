@@ -4,10 +4,12 @@
 #include <tchar.h>
 #include <memory>
 #include "GameObject.h"
+#include <iostream>
+#include "Player.h"
 
 //Convert bytes to MB
 #define DIV 1048576
-
+using namespace std;
 EngineManager::EngineManager()
 {
 }
@@ -19,13 +21,27 @@ EngineManager::~EngineManager()
 
 void EngineManager::Start()
 {
+	float deltaTime = 0.0f;
 	sf::RenderWindow window(sf::VideoMode(1024, 1024), "SFML works!");
 	sf::WindowHandle myWind = window.getSystemHandle();
-	sf::Texture texture;
-	texture.loadFromFile("splash1.png");
-	sf::Sprite sprite;
-	sprite.setScale(0.5, 0.5);
-	sprite.setTexture(texture);
+	sf::Clock deltaClock;
+	sf::Clock clock;
+	sf::Time ssTimer = sf::seconds(3.0f);
+
+	sf::Texture ssTexture;
+	ssTexture.loadFromFile("../Assets/Images/splash1.png");
+	sf::Sprite ssSprite;
+	ssSprite.setScale(0.5, 0.5);
+	ssSprite.setTexture(ssTexture);
+
+	sf::Texture texture2;
+	texture2.loadFromFile("../Assets/Images/closedBox.jpg");
+
+	Player player(&texture2, 100.0f);
+
+	GameObject platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
+	GameObject platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+
 
 	GameObject *scene = new GameObject;
 	GameObject *sun = new GameObject;
@@ -38,16 +54,38 @@ void EngineManager::Start()
 
 	while (window.isOpen())
 	{
+		deltaTime = deltaClock.restart().asSeconds();
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		PhysicsManager playerCollRect = player.GetCollider();
+		player.Update(deltaTime);
+		platform1.GetCollider().CheckCollision(playerCollRect, 1.0f);
+		platform2.GetCollider().CheckCollision(playerCollRect, 0.0f);
 
+		//view.setCenter(player.GetPosition());
 		window.clear();
-		window.draw(sprite);
+
+		//Splash Screen goes away after set time
+		sf::Time elapsed1 = clock.getElapsedTime();
+		if (ssTimer < elapsed1)
+		{
+			platform1.Draw(window);
+			platform2.Draw(window);
+			player.Draw(window);
+
+		}
+		else
+		{
+			window.draw(ssSprite);
+		}
+
 		window.display();
+		
+	
 	}
 }
 

@@ -4,5 +4,6 @@ class InputManager
 public:
 	InputManager();
 	~InputManager();
+	void KeyInput();
 };
 

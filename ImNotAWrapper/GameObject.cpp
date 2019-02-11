@@ -2,10 +2,18 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject()
+GameObject::GameObject(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position)
 {
+	body.setSize(size);
+	body.setOrigin(size / 2.0f);
+	body.setTexture(texture);
+	body.setPosition(position);
 	parent = nullptr;
 	componentList.push_back(&(BaseComponent)myTransformComponent);
+}
+
+GameObject::GameObject()
+{
 }
 
 
@@ -29,7 +37,6 @@ void GameObject::AddChild(GameObject * _child)
 
 void GameObject::Update(float _msec)
 {
-
 	//if (parent) {//This node has a parent
 	//	worldTransform = parent->worldTransform * localTransform;
 	//}
@@ -40,4 +47,9 @@ void GameObject::Update(float _msec)
 	for (std::vector<GameObject*>::iterator i = children.begin(); i != children.end(); i++) {
 		(*i)->Update(_msec);
 	}
+}
+
+void GameObject::Draw(sf::RenderWindow& window)
+{
+	window.draw(body);
 }

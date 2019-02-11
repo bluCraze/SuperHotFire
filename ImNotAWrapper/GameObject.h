@@ -1,11 +1,14 @@
 #pragma once
 #include <SFML/Graphics/Transform.hpp>
+#include <SFML/Graphics.hpp>
+#include "PhysicsManager.h"
 #include <vector>
 #include "TransformComponent.h"
 
 class GameObject
 {
 public:
+	GameObject(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position);
 	GameObject();
 	~GameObject();
 
@@ -18,7 +21,10 @@ public:
 
 	virtual void Update(float _msec);
 
+	void Draw(sf::RenderWindow& window);
+	PhysicsManager GetCollider() { return PhysicsManager(body); }
 private:
+	sf::RectangleShape body;
 	GameObject* parent;
 	/*sf::Transform worldTransform;
 	sf::Transform localTransform;*/
