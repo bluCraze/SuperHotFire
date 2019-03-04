@@ -1,18 +1,16 @@
 #pragma once
 #include <string>
 
-enum ComponentName{TRANSFORM,RENDERER,PHYSICS};
+enum ComponentName{TRANSFORM,RENDERER,PHYSICS,AUDIO};
 
 class BaseComponent
 {
 public:
-	BaseComponent();
+	BaseComponent(ComponentName _componentName);
 	~BaseComponent();
-
-	void FindComponent(std::string _componentName) {
-
-	}
+	ComponentName m_componentName;
+	
 private:
-	   //ComponentName 
+	   
 };
 

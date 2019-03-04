@@ -6,5 +6,8 @@ class Actor :
 public:
 	Actor();
 	~Actor();
+
+	void moveLeft();
+	void moveRight();
 };
 

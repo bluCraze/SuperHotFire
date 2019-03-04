@@ -2,8 +2,9 @@
 #include "BaseComponent.h"
 
 
-BaseComponent::BaseComponent()
+BaseComponent::BaseComponent(ComponentName _componentName)
 {
+	m_componentName = _componentName;
 }
 
 

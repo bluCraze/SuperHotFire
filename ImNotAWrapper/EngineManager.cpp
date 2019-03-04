@@ -10,8 +10,17 @@
 //Convert bytes to MB
 #define DIV 1048576
 using namespace std;
+
+
 EngineManager::EngineManager()
 {
+	m_gameState = Uninitialized;
+	InputManager m_inputManager = InputManager();
+	PhysicsManager m_physicsManager = PhysicsManager();
+	AudioManager m_audioManager = AudioManager();
+
+	int numberOfManagers = 2;
+	
 }
 
 
@@ -21,72 +30,11 @@ EngineManager::~EngineManager()
 
 void EngineManager::Start()
 {
-	float deltaTime = 0.0f;
-	sf::RenderWindow window(sf::VideoMode(1024, 1024), "SFML works!");
-	sf::WindowHandle myWind = window.getSystemHandle();
-	sf::Clock deltaClock;
-	sf::Clock clock;
-	sf::Time ssTimer = sf::seconds(3.0f);
-
-	sf::Texture ssTexture;
-	ssTexture.loadFromFile("../Assets/Images/splash1.png");
-	sf::Sprite ssSprite;
-	ssSprite.setScale(0.5, 0.5);
-	ssSprite.setTexture(ssTexture);
-
-	sf::Texture texture2;
-	texture2.loadFromFile("../Assets/Images/closedBox.jpg");
-
-	Player player(&texture2, 100.0f);
-
-	GameObject platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
-	GameObject platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
-
-
-	GameObject *scene = new GameObject;
-	GameObject *sun = new GameObject;
-	GameObject *earth = new GameObject;
-	GameObject *moon = new GameObject;
-
-	scene->AddChild(sun);
-	sun->AddChild(earth);
-	earth->AddChild(moon);
-
-	while (window.isOpen())
-	{
-		deltaTime = deltaClock.restart().asSeconds();
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-		PhysicsManager playerCollRect = player.GetCollider();
-		player.Update(deltaTime);
-		platform1.GetCollider().CheckCollision(playerCollRect, 1.0f);
-		platform2.GetCollider().CheckCollision(playerCollRect, 0.0f);
-
-		//view.setCenter(player.GetPosition());
-		window.clear();
-
-		//Splash Screen goes away after set time
-		sf::Time elapsed1 = clock.getElapsedTime();
-		if (ssTimer < elapsed1)
-		{
-			platform1.Draw(window);
-			platform2.Draw(window);
-			player.Draw(window);
-
-		}
-		else
-		{
-			window.draw(ssSprite);
-		}
-
-		window.display();
-		
 	
-	}
+	m_mainWindow.create(sf::VideoMode(1024, 1024), "SFML works!");
+	sf::WindowHandle myWind = m_mainWindow.getSystemHandle();
+	GameLoop();
+	
 }
 
 void EngineManager::Initialize()
@@ -215,6 +163,98 @@ bool EngineManager::IsExiting()
 	return false;
 }
 
+//void EngineManager::relayTemp(std::string * temp)
+//{
+//	for (auto &inputCallback : m_callbacks) // access by reference to avoid copying
+//	{
+//		inputCallback(temp);
+//	}
+//}
+
 void EngineManager::GameLoop()
 {
+	float deltaTime = 0.0f;
+	sf::Clock deltaClock;
+	sf::Clock clock;
+	sf::Time ssTimer = sf::seconds(3.0f);
+
+	sf::Texture ssTexture;
+	ssTexture.loadFromFile("../Assets/Images/splash1.png");
+	sf::Sprite ssSprite;
+	ssSprite.setScale(0.5, 0.5);
+	ssSprite.setTexture(ssTexture);
+
+	sf::Texture texture2;
+	texture2.loadFromFile("../Assets/Images/pacman.png");
+
+	//Creating the scene node
+	GameObject *scene = new GameObject;
+
+	vector<GameObject*> listOfPhysicsObjs;
+
+	Player player(&texture2, 100.0f);
+
+	//Creating platform1 gameobject, will probably need to create a gameobject factory
+	GameObject platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
+	Render* platform1RenderComp = new Render();
+	PhysicsComponent* platform1PhysicsComp = new PhysicsComponent(1.0f);
+	platform1.AddComponent(platform1RenderComp);
+	platform1.AddComponent(platform1PhysicsComp);
+	scene->AddChild(&platform1);
+	listOfPhysicsObjs.push_back(&platform1);
+
+	//Creating platform2 gameobject
+	GameObject platform2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+	Render* platform2RenderComp = new Render();
+	PhysicsComponent* platform2PhysicsComp = new PhysicsComponent(0.0f);
+	platform2.AddComponent(platform2RenderComp);
+	platform2.AddComponent(platform2PhysicsComp);
+	scene->AddChild(&platform2);
+	listOfPhysicsObjs.push_back(&platform2);
+
+	/*GameObject *sun = new GameObject;
+	GameObject *earth = new GameObject;
+	GameObject *moon = new GameObject;
+	//scene->AddChild(&player);
+	/*sun->AddChild(earth);
+	earth->AddChild(moon);*/
+
+	//m_inputManager.m_callbacks.push_back(&player.Movement);
+
+	while (m_mainWindow.isOpen())
+	{
+		deltaTime = deltaClock.restart().asSeconds();
+		sf::Event event;
+		while (m_mainWindow.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				m_mainWindow.close();
+		}
+
+		//view.setCenter(player.GetPosition());
+		m_mainWindow.clear();
+
+		//Splash Screen goes away after set time
+		sf::Time elapsed1 = clock.getElapsedTime();
+		if (ssTimer < elapsed1)
+		{
+
+			/*PhysicsManager playerCollRect = player.GetCollider();
+			platform1.GetCollider().CheckCollision(playerCollRect, 1.0f);
+			platform2.GetCollider().CheckCollision(playerCollRect, 0.0f);*/
+			m_inputManager.Update(deltaTime);
+			m_physicsManager.Update(deltaTime, &player, listOfPhysicsObjs);
+			player.Update(deltaTime, m_mainWindow, m_inputManager.m_moveDirection);
+			scene->Update(deltaTime, m_mainWindow);
+			
+		}
+		else
+		{
+			m_mainWindow.draw(ssSprite);
+		}
+
+		m_mainWindow.display();
+
+
+	}
 }

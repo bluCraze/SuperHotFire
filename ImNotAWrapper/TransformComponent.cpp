@@ -2,9 +2,9 @@
 #include "TransformComponent.h"
 
 
-TransformComponent::TransformComponent()
+TransformComponent::TransformComponent():BaseComponent(TRANSFORM)
 {
-	localTransform = sf::Transform::Identity;
+	localTransform = sf::Transformable();
 }
 
 
