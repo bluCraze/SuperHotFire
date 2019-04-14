@@ -7,10 +7,11 @@ class Player:
 	public GameObject
 {
 public:
+	Player();
 	Player(sf::Texture* texture, float speed);
 	~Player();
 
-	void Update(float deltaTime, sf::RenderWindow& _window, int direction);
+	void Update(float deltaTime, sf::RenderWindow* _window, int direction);
 	
 	
 

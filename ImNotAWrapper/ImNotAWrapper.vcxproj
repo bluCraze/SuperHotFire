@@ -75,7 +75,7 @@
     <OutDir>..\Builds\</OutDir>
     <IntDir>..\Temp\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)/lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
+    <IncludePath>(SolutionDir)/lib/rapidJSON/include;$(SolutionDir)/lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/lib/SFML-2.5.1/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -83,7 +83,7 @@
     <OutDir>..\Builds</OutDir>
     <IntDir>..\Temp</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)/Lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
+    <IncludePath>(SolutionDir)/lib/rapidJSON/include;$(SolutionDir)/Lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/Lib/SFML-2.5.1/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,7 +91,7 @@
     <OutDir>..\Builds\</OutDir>
     <IntDir>..\Temp\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)/lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
+    <IncludePath>(SolutionDir)/lib/rapidJSON/include;$(SolutionDir)/lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/lib/SFML-2.5.1/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,7 +99,7 @@
     <OutDir>..\Builds</OutDir>
     <IntDir>..\Temp</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)/Lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
+    <IncludePath>(SolutionDir)/lib/rapidJSON/include;$(SolutionDir)/Lib/SFML-2.5.1/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)/Lib/SFML-2.5.1/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -184,13 +184,15 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Render.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +201,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ImNotAWrapper.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -212,6 +215,7 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

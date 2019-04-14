@@ -64,17 +64,17 @@ void GameObject::AddChild(GameObject * _child)
 	_child->parent = this;
 }
 
-void GameObject::Update(float _msec, sf::RenderWindow& _window)
+void GameObject::Update(float _msec, sf::RenderWindow* _window)
 {
-	if (parent) {//This node has a parent
-		myTransformComponent.setWorldTransform(parent->myTransformComponent.GetWorldTransform * myTransformComponent.GetTransform);
-	}
-	else {//This is the Root Node, world == local
-		myTransformComponent.setWorldTransform(myTransformComponent.GetTransform);
-	}
+	//if (parent) {//This node has a parent
+	//	myTransformComponent.setWorldTransform(parent->myTransformComponent.GetWorldTransform * myTransformComponent.GetTransform);
+	//}
+	//else {//This is the Root Node, world == local
+	//	myTransformComponent.setWorldTransform(myTransformComponent.GetTransform);
+	//}
 
 	if (HasComponent(RENDERER)) {
-		Render* tempRend = (Render*)GetComponent(RENDERER);
+		RenderComponent* tempRend = (RenderComponent*)GetComponent(RENDERER);
 		tempRend->Draw(_window, m_body);
 	}
 

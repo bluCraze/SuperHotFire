@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "TransformComponent.h"
-#include "Render.h"
+#include "RenderComponent.h"
 #include "PhysicsComponent.h"
 
 class GameObject
@@ -24,7 +24,7 @@ public:
 	void SetParent(GameObject* _parent);
 	void AddChild(GameObject* _child);
 
-	virtual void Update(float _msec, sf::RenderWindow& _window);
+	virtual void Update(float _msec, sf::RenderWindow* _window);
 
 	//void Draw(sf::RenderWindow& window);
 	//PhysicsManager GetCollider() { return PhysicsManager(m_body); }

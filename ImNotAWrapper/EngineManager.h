@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "PhysicsManager.h"
 #include "AudioManager.h"
+#include "SceneManager.h"
 
 class EngineManager
 {
@@ -18,6 +19,7 @@ private:
 	 InputManager m_inputManager;
 	 PhysicsManager m_physicsManager;
 	 AudioManager m_audioManager;
+	 SceneManager m_sceneManager;
 
 	 int numberOfManagers;
 	
@@ -28,7 +30,6 @@ public:
 	~EngineManager();
 	 void Start();
 	 void Initialize();
-	 void GameLoop();
 
 //Private Methods
 private:

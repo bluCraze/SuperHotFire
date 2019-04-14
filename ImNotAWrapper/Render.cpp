@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "Render.h"
+#include "RenderComponent.h"
 
 
-Render::Render():BaseComponent(RENDERER)
+RenderComponent::RenderComponent():BaseComponent(RENDERER)
 {
 
 }
 
 
-Render::~Render()
+RenderComponent::~RenderComponent()
 {
 }
 
-void Render::Draw(sf::RenderWindow & _window, sf::RectangleShape _body)
+void RenderComponent::Draw(sf::RenderWindow* _window, sf::RectangleShape _body)
 {
-	_window.draw(_body);
+	_window->draw(_body);
 }
