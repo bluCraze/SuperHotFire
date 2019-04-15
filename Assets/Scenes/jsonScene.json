@@ -1,7 +1,245 @@
 {
-    "SceneName": "Name",
-    "GameObjects": [
-		{
-			
-		}1, 2, 3, 4]
+  "SceneName": "deal_with_it",
+  "GameObjects": [
+    {
+      "Name": "obj1",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 360,
+      "PositionY": 180
+    },
+    {
+      "Name": "obj1",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 270,
+      "PositionY": 270
+    },
+    {
+      "Name": "obj2",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 180,
+      "PositionY": 360
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 180,
+      "PositionY": 450
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 180,
+      "PositionY": 540
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 270,
+      "PositionY": 630
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 360,
+      "PositionY": 630
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 450,
+      "PositionY": 630
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 540,
+      "PositionY": 630
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 630,
+      "PositionY": 630
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 630,
+      "PositionY": 540
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 630,
+      "PositionY": 450
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 630,
+      "PositionY": 360
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 540,
+      "PositionY": 270
+    },
+    {
+      "Name": "obj3",
+      "BaseShape": "Rectangle",
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 450,
+      "PositionY": 180
+    },
+    {
+      "Name": "eye",
+      "BaseShape": "Rectangle",
+      "Colour": "red",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 360,
+      "PositionY": 360
+    },
+    {
+      "Name": "eye",
+      "BaseShape": "Rectangle",
+      "Colour": "red",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 40,
+      "PositionX": 540,
+      "PositionY": 360
+    },
+    {
+      "Name": "smirk",
+      "BaseShape": "Rectangle",
+      "Colour": "cyan",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 20,
+      "PositionX": 450,
+      "PositionY": 540
+    },
+    {
+      "Name": "smirk",
+      "BaseShape": "Rectangle",
+      "Colour": "cyan",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 20,
+      "PositionX": 360,
+      "PositionY": 540
+    },
+    {
+      "Name": "smirk",
+      "BaseShape": "Rectangle",
+      "Colour": "cyan",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true,
+      "Height": 40,
+      "Width": 20,
+      "PositionX": 540,
+      "PositionY": 540
+    }
+  ]
 }

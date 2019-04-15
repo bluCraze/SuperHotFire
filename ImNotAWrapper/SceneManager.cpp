@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
 #include <fstream>
+
+#pragma warning(disable : 4996)
 
 
 SceneManager::SceneManager()
@@ -13,24 +16,57 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::LoadScene(std::string _scenePath)
+void SceneManager::LoadScene(std::string _scenePath, GameObject* _sceneNode, std::vector<GameObject*>* _listOfPhysicsObjs, std::vector<GameObject*>* _listOfAudioObjs, sf::RenderWindow* _window)
 {
-	std::ifstream t(_scenePath);
-	int length;
-	//t.open(_scenePath);      // open input file
-	if (!t) {
-		printf("idiot");
-	}
-	t.seekg(0, std::ios::end);    // go to the end
-	length = t.tellg();           // report location (this is the length)
-	t.seekg(0, std::ios::beg);    // go back to the beginning
-	m_jsonScene = new char[length];    // allocate memory for a buffer of appropriate dimension
-	t.read(m_jsonScene, length);       // read the whole file into the buffer
-	t.close();                    // close file handle
+	FILE* fp = fopen(_scenePath.c_str(), "rb"); // non-Windows use "r"
 
-	rapidjson::Document document;
-	document.Parse(m_jsonScene);
+	char readBuffer[65536];
+	rapidjson::FileReadStream m_jsonScene(fp, readBuffer, sizeof(readBuffer));
+
+	rapidjson::Document documentScene;
+	documentScene.ParseStream(m_jsonScene);
 
 	
+	//printf(documentScene["SceneName"].GetString());
+
+	fclose(fp);
+
+	_sceneNode->SetName(documentScene["SceneName"].GetString());
+	_window->setTitle(documentScene["SceneName"].GetString());
+
+	//Gets a reference to the gameObjects array in the json
+	const rapidjson::Value& gameObjects = documentScene["GameObjects"];
+	//Loops through all the elements in the above array
+	for (rapidjson::Value::ConstValueIterator itr = gameObjects.Begin(); itr != gameObjects.End(); ++itr) {
+		
+		GameObject* tempGameObject = new GameObject(nullptr,
+			sf::Vector2f(itr->FindMember("Width")->value.GetFloat(), itr->FindMember("Height")->value.GetFloat()),
+			sf::Vector2f(itr->FindMember("PositionX")->value.GetFloat(), itr->FindMember("PositionY")->value.GetFloat()),
+			itr->FindMember("Colour")->value.GetString());
+		tempGameObject->SetName(itr->FindMember("Name")->value.GetString());
+		if (itr->FindMember("PhysicsComponent")->value.GetBool()) {
+			PhysicsComponent* PhysicsComp = new PhysicsComponent(1.0f);
+			tempGameObject->AddComponent(PhysicsComp);
+			_listOfPhysicsObjs->push_back(tempGameObject);
+		}
+		if (itr->FindMember("AudioComponent")->value.GetBool()) {
+			AudioComponent* AudioComp = new AudioComponent();
+			tempGameObject->AddComponent(AudioComp);
+			_listOfAudioObjs->push_back(tempGameObject);
+		}
+		if (itr->FindMember("RenderComponent")->value.GetBool()) {
+			RenderComponent* RenderComp = new RenderComponent();
+			tempGameObject->AddComponent(RenderComp);
+		}
+		
+		tempGameObject->SetParent(_sceneNode);
+		_sceneNode->AddChild(tempGameObject);
+		
+	}
+	//for (rapidjson::Value::ConstMemberIterator itr = gameObjects.MemberBegin(); itr != gameObjects.MemberEnd(); ++itr) {
+	//	//itr->
+	//}
+	//assert(gameObjects.IsArray());
+	//printf("GameObjects = %s\n", gameObjects[0].FindMember("Name")->value.GetString());
 
 }

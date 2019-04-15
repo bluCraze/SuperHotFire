@@ -19,7 +19,11 @@ PhysicsManager::~PhysicsManager()
 void PhysicsManager::Update(float dt, GameObject* player, std::vector<GameObject*> scene)
 {
 	for (auto &gameObject : scene) {
-		CheckCollision(player, gameObject);
+		 for (auto &otherObject : scene){
+			 if (gameObject != otherObject && otherObject != player)
+				CheckCollision(gameObject, otherObject);
+		}
+		
 	}
 }
 

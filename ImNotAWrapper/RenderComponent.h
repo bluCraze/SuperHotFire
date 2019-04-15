@@ -9,5 +9,6 @@ public:
 	~RenderComponent();
 
 	void Draw(sf::RenderWindow* _window, sf::RectangleShape _body);
+	void Draw(sf::RenderWindow* _window, sf::CircleShape _body);
 };
 

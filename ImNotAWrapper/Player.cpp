@@ -6,7 +6,7 @@
 
 Player::Player()
 {
-	m_body.setSize(sf::Vector2f(100.0f, 150.0f));
+	m_body.setSize(sf::Vector2f(30.0f, 45.0f));
 	m_body.setOrigin(m_body.getSize() / 2.0f);
 	m_body.setPosition(206.0f, 206.0f);
 	m_movement = sf::Vector2f(0.0f, 0.0f);
@@ -16,7 +16,7 @@ Player::Player()
 Player::Player(sf::Texture* texture, float _speed)
 {
 	m_speed = _speed;
-	m_body.setSize(sf::Vector2f(100.0f, 150.0f));
+	m_body.setSize(sf::Vector2f(30.0f, 45.0f));
 	m_body.setOrigin(m_body.getSize() / 2.0f);
 	m_body.setPosition(206.0f, 206.0f);
 	m_body.setTexture(texture);

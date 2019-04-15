@@ -32,7 +32,7 @@ EngineManager::~EngineManager()
 void EngineManager::Start()
 {
 	
-	m_mainWindow.create(sf::VideoMode(1024, 1024), "SFML works!");
+	m_mainWindow.create(sf::VideoMode(720, 720), "SFML works!");
 	sf::WindowHandle myWind = m_mainWindow.getSystemHandle();
 	Game myGame = Game();
 	m_gameState = ShowingSplash;

@@ -1,0 +1,54 @@
+{
+  "SceneName": "Level1",
+  "GameObjects": [
+    {
+      "Name": "Object1",
+      "BaseShape": "Square",
+      "Height": 100,
+      "Width": 100,
+      "PositionX": 0,
+      "PositionY":  128,
+      "Colour": "blue",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true
+    },
+    {
+      "Name": "Object2",
+      "BaseShape": "Square",
+      "Height": 100,
+      "Width": 100,
+      "PositionX": 500,
+      "PositionY": 0,
+      "Colour": "green",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true
+    },
+    {
+      "Name": "Object3",
+      "BaseShape": "Square",
+      "Height": 100,
+      "Width": 100,
+      "PositionX": 500,
+      "PositionY": 700,
+      "Colour": "yellow",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true
+    },
+    {
+      "Name": "Object4",
+      "BaseShape": "Square",
+      "Height": 100,
+      "Width": 100,
+      "PositionX": 500,
+      "PositionY": 1000,
+      "Colour": "blue",
+      "PhysicsComponent": true,
+      "AudioComponent": false,
+      "RenderComponent": true
+    }
+  ]
+  
+}

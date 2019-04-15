@@ -214,7 +214,7 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
